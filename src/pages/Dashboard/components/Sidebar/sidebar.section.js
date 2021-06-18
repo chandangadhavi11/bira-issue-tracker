@@ -3,6 +3,11 @@ import { ContentBox, Text } from '../../../../ui';
 import { useHistory } from "react-router-dom";
 import {CreateModal} from "../Create/modal/create.modal"
 import styled from "styled-components"
+import dashboardIcon from "../../../../assets/Dashboard.svg"
+import issueIcon from "../../../../assets/Issues.svg"
+import createIcon from "../../../../assets/Create.svg"
+import biraLogo from "../../../../assets/Logo.svg"
+
 
 const SidebarFlexBox = styled(ContentBox)`
 width: 100%;
@@ -44,7 +49,7 @@ border-bottom: 1px solid #E9EAEA;
 box-sizing: border-box;
 `
 
-const Logo = styled.div`
+const Logo = styled.img`
 width: 48px;
 height: 48px;
 background: black;
@@ -53,14 +58,13 @@ background: black;
 const SidebarElementLogo = styled.img`
 width: 24px;
 height: 24px;
-background: black;
 `
 
 const SidebarLogo = () => {
     return (
         <SidebarLogoCSS>
             <HorizontalFlexBox marginTop={10} marginLeft={20} style={{ width: "100%", height: "100%" }}>
-                <Logo />
+                <Logo/>
                 <Text size={26} marginLeft={8} marginTop={10} fontWeight={600} color="#000000">BIRA</Text>
             </HorizontalFlexBox>
         </SidebarLogoCSS>
@@ -72,15 +76,20 @@ export const SidebarSection = () => {
     const linkData = [
         {
             linkName: "Dashboard",
-            link: "dashboard"
+            link: "dashboard",
+            icon: dashboardIcon,
         },
         {
             linkName: "Issues",
-            link: "issues"
+            link: "issues",
+            icon: issueIcon,
+
         },
         {
             linkName: "Create",
-            link: "create"
+            link: "create",
+            icon: createIcon,
+
         },
     ]
     const [linkFocusNumber, setLinkFocusNumber] = useState(window.location.pathname);
@@ -102,7 +111,7 @@ export const SidebarSection = () => {
                                     history.push(`/${link.link}`)
                                 }
                                 }}>
-                                <SidebarElementLogo marginLeft={16}></SidebarElementLogo>
+                                <SidebarElementLogo marginLeft={16} src={link.icon}></SidebarElementLogo>
                                 <Text size={16} color={`${focus ? "#ffffff" : "#7886B2"}`} marginLeft={24}>{link.linkName}</Text>
                             </SidebarLinks>
                         )

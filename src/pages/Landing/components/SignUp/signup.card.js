@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ContentBox, Card, Text } from '../../../../ui';
 import styled from "styled-components"
+import { useHistory } from 'react-router-dom';
 
 const VerticalFlexBox = styled(ContentBox)`
 width: 100%;
@@ -73,6 +74,7 @@ export const SignUpCard = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    let history = useHistory();
     return (
         <Card float="right" marginLeft={56}>
             <VerticalFlexBox>
@@ -101,7 +103,7 @@ export const SignUpCard = () => {
                 </ContentBox>
                 <HorizontalFlexBox marginTop={24} marginBottom={8}>
                     <Text color="#000000" size={14}>Already Have An Account?</Text>
-                    <Text href="/login" color="#4D60F6" size={14} fontWeight={600} marginLeft={4}>Login Here</Text>
+                    <Text style={{cursor: "pointer"}} href="/login" color="#4D60F6" size={14} fontWeight={600} marginLeft={4} onClick={() => {history.push("/login")}}>Login Here</Text>
                 </HorizontalFlexBox>
             </VerticalFlexBox>
         </Card>

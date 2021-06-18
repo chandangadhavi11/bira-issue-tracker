@@ -67,6 +67,8 @@ export const CreateModal = (props) => {
     const [priority, setPriority] = useState("MEDIUM");
     const [createdDate, setCreatedDate] = useState(new Date());
 
+
+    
     const createIssue = async () => {
         var formdata = new FormData();
         formdata.append("short_id", `${shortID}`);
