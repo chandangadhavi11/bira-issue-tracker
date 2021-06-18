@@ -65,6 +65,7 @@ export const CreateModal = (props) => {
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState("TODO");
     const [priority, setPriority] = useState("MEDIUM");
+    const [createdDate, setCreatedDate] = useState(new Date());
 
     const createIssue = async () => {
         var formdata = new FormData();
@@ -73,6 +74,7 @@ export const CreateModal = (props) => {
         formdata.append("priority", `${priority}`);
         formdata.append("status", `${status}`);
         formdata.append("title", `${title}`);
+        formdata.append("created_at", `${createdDate}`);
 
         var requestOptions = {
             method: 'POST',

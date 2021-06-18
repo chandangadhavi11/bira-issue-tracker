@@ -71,3 +71,21 @@ export const GetHPIssuesList = () => {
     }, [url])
     return { hPData, hPLoading, hPError }
 }
+
+export const GetRUI = () => {
+
+    const url = `/api/v1/issues`
+    const [ruiData, setRUIData] = useState()
+    const [ruiLoading, setRUILoading] = useState(true)
+    const [ruiError, setRUIError] = useState(false)
+
+    useEffect(() => {
+        fetch(url).then((res) => res.json())
+            .then((res) => setRUIData(res))
+            .then(() => setRUIData((data) => data.reverse()))
+            .then(() => setRUILoading(false))
+            .catch(setRUIError(true))
+    }, [url])
+
+    return { ruiData, ruiLoading, ruiError }
+}

@@ -3,7 +3,8 @@ export {
     GetTodoIssuesList, 
     GetInProgressIssuesList, 
     GetDoneIssuesList,
-    GetHPIssuesList
+    GetHPIssuesList,
+    GetRUI
 } from "./apis/issues/getIssuesList"
 
 export {GetIssue} from "./apis/issues/getIssue"

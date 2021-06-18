@@ -146,8 +146,14 @@ padding: 14px;
 }
 `
 const Issue = ({ data }) => {
-
     let history = useHistory()
+    const getDateText = (text) => {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const date = text.slice(8, 10);
+        const month = months[text.slice(6, 7) - 1];
+        const year = text.slice(0, 4);
+        return `${month} ${date}, ${year}`
+    }
     return (
 
         <HoverVFB style={{ cursor: "pointer" }}
@@ -156,7 +162,7 @@ const Issue = ({ data }) => {
             }}>
             <ContentBox display="block">
                 <OverFlowText numOfLines={1} color="#333A4C" size={17} fontWeight={600} style={{ maxWidth: "180px" }}>{data.title}</OverFlowText>
-                <Text color="#C7CFD7" size={12} float="right" marginTop={4}>January 12, 2019</Text>
+                <Text color="#C7CFD7" size={12} float="right" marginTop={4}>{getDateText(data.created_at)}</Text>
             </ContentBox>
             <ContentBox>
                 <OverFlowText numOfLines={2} color="#7D8EA2" size={12} marginTop={4}>{data.description}</OverFlowText>
@@ -169,9 +175,18 @@ const Issue = ({ data }) => {
 
 export const DashboardSection = () => {
 
-    const { issueData, issueLoading, issueError } = GetIssuesList();
+    var { issueData, issueLoading, issueError } = GetIssuesList();
     const { hPData, hPLoading, hPError } = GetHPIssuesList();
 
+
+    function reverseArr(input) {
+        var ret = new Array;
+        for(var i = input.length-1; i >= 0; i--) {
+            ret.push(input[i]);
+        }
+        return ret;
+    }
+    
 
     const monthDays = []
     for (var i = 1; i <= 31; i++) {
@@ -260,7 +275,7 @@ export const DashboardSection = () => {
 
                                 {/* Here */}
                                 {!issueLoading ?
-                                    issueData.slice(0, 5).map((issue, index) => {
+                                    reverseArr(issueData).slice(0, 5).map((issue, index) => {
                                         return (
                                             <VerticalFlexBox>
                                                 <Issue key={index} data={issue} />
