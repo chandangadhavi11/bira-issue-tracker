@@ -93,7 +93,9 @@ export const LoginCard = () => {
                     <Text color="#4D60F6" style={{float: "right"}}>Forgot Password?</Text>
                 </ContentBox>
                 <ContentBox marginTop={16}>
-                    <Button>Login</Button>
+                    <Button onClick={()=> {
+                        history.push("/dashboard")
+                    }}>Login</Button>
                 </ContentBox>
                 <HorizontalFlexBox marginTop={24} marginBottom={24}>
                     <Text color="#000000" size={14}>New User?</Text>

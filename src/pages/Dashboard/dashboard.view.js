@@ -6,7 +6,7 @@ import { DashboardSection, SidebarSection, IssuesSection, IssueSection } from '.
 const FullWidthGridBox = styled(ContentBox)`
 width: 100%;
 display: grid;
-grid-template-columns: 28ch auto;
+grid-template-columns: 32.25ch auto;
 @media (max-width: 1200px) {
     grid-template-columns: 14ch auto;
 }

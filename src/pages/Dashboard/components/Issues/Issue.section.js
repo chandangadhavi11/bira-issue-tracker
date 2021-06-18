@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ContentBox, Text } from '../../../../ui';
 import styled from "styled-components"
-import { GetIssue, GetIssuesList, DeleteIssue, UpdateStatus } from '../../../../services';
+import { GetIssue, GetIssuesList, DeleteIssue, UpdateStatus, GetIssuesList2 } from '../../../../services';
 import { EditModal } from "./modal/edit.modal"
 import { DeleteConfirmationModal } from "./modal/deleteconfirm.modal"
-
+import {SearchBarSection} from "../../../components"
 import { Dropdown } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -97,23 +97,9 @@ border-radius: 24px;
 background: #000000;
 `
 
-
-const SearchBarSection = () => {
-    return (
-        <SearchbarBox display="block">
-            <SearchBarHorizontalFlexBox marginLeft={28}>
-                <SearchLogo />
-                <SearchInput placeholder="search..." />
-            </SearchBarHorizontalFlexBox>
-            <SearchBarHorizontalFlexBox float="right" marginRight={38}>
-                <ProfileButton />
-            </SearchBarHorizontalFlexBox>
-        </SearchbarBox>
-    )
-}
-
 export const IssueSection = ({ id }) => {
     const { issueData, issueLoading, issueError } = GetIssue(id);
+    const { issueListData, issueListLoading, issueListError } = GetIssuesList2();
     const [editModalIsShown, setEditModalIsShown] = useState(false);
     const [deleteConfirmationModalIsShown, setDeleteConfirmationModalIsShown] = useState(false);
     const [status, setStatus] = useState();
@@ -144,12 +130,12 @@ export const IssueSection = ({ id }) => {
         const deleteIssueFetch = await fetch(`http://localhost:8000/api/v1/issues/${id}/`, requestOptions);
     }
 
-    if (issueLoading) {
+    if (issueLoading || issueListLoading) {
         return <h1>Loading</h1>
     }
     return (
         <FullWidthContentBox>
-            <SearchBarSection />
+                <SearchBarSection data={issueListData} />
             <VerticalFlexBox marginLeft={48} marginTop={32} marginRight={64}>
                 <ContentBox>
                     <Text size={26} color="#292D32" fontWeight={600}>{issueData.title}</Text>

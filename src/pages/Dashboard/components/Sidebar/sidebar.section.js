@@ -6,6 +6,10 @@ import styled from "styled-components"
 import dashboardIcon from "../../../../assets/Dashboard.svg"
 import issueIcon from "../../../../assets/Issues.svg"
 import createIcon from "../../../../assets/Create.svg"
+
+import dashboardIconfocus from "../../../../assets/Dashboard 2.svg"
+import issueIconfocus from "../../../../assets/Group 8.svg"
+import createIconfocus from "../../../../assets/Create 2.svg"
 import biraLogo from "../../../../assets/Logo.svg"
 
 
@@ -78,17 +82,20 @@ export const SidebarSection = () => {
             linkName: "Dashboard",
             link: "dashboard",
             icon: dashboardIcon,
+            s_icon: dashboardIconfocus,
         },
         {
             linkName: "Issues",
             link: "issues",
             icon: issueIcon,
+            s_icon: issueIconfocus,
 
         },
         {
             linkName: "Create",
             link: "create",
             icon: createIcon,
+            s_icon: createIconfocus,
 
         },
     ]
@@ -111,7 +118,7 @@ export const SidebarSection = () => {
                                     history.push(`/${link.link}`)
                                 }
                                 }}>
-                                <SidebarElementLogo marginLeft={16} src={link.icon}></SidebarElementLogo>
+                                <SidebarElementLogo marginLeft={16} src={!focus ? link.icon : link.s_icon}></SidebarElementLogo>
                                 <Text size={16} color={`${focus ? "#ffffff" : "#7886B2"}`} marginLeft={24}>{link.linkName}</Text>
                             </SidebarLinks>
                         )

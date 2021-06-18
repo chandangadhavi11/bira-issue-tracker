@@ -102,7 +102,7 @@ export const CreateSection = () => {
     return (
         <FullWidthContentBox >
             <VerticalFlexBox>
-            <SearchBarSection />
+
             <VerticalFlexBox fullWidth={true}>
                 <ContentBox marginLeft={30} marginTop={32}>
                     <Text size={28} fontWeight={600} color="#000000">Create</Text>

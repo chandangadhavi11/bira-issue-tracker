@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, ContentBox, Text } from '../../../../ui';
 import styled from "styled-components"
-import { GetHPIssuesList, GetIssuesList } from '../../../../services';
+import { GetHPIssuesList, GetIssuesList, GetUserList } from '../../../../services';
+import { SearchBarSection } from "../../../components"
 import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { AutoComplete } from 'antd';
@@ -21,18 +22,27 @@ overflow-x: hidden;
 overflow-y: scroll;
 `
 
-const SearchbarBox = styled(ContentBox)`
-width: 100%;
-height: 70px;
-background: #ffffff;
+const ProfileButton = styled.div`
+width: 34px;
+height: 34px;
+border-radius: 24px;
+background: ${props => props.bgUrl ? `url(${props.bgUrl})` : "black"};
+background-size: cover;
+background-position: center;
 `
+
 
 const VerticalFlexBox = styled(ContentBox)`
 display: flex;
 flex-direction: column;
 `
-
 const HorizontalFlexBox = styled(ContentBox)`
+display: flex;
+flex-direction: row;
+`
+
+
+const FullHorizontalFlexBox = styled(ContentBox)`
 width: 100%;
 /* Auto Layout */
 
@@ -42,68 +52,6 @@ padding: 10px;
 margin-left: 22px;
 `
 
-const SearchBarHorizontalFlexBox = styled(ContentBox)`
-height: 100%;
-display: flex;
-flex-direction: row;
-align-items: center;
-`
-
-const SearchLogo = styled.div`
-width: 24px;
-height: 24px;
-background: black;
-`
-
-const SearchInput = styled(AutoComplete)`
-border: none;
-outline: none;
-margin-left: 6px;
-font-size: 16px;
-font-weight: 500;
-
-.ant-select-selector {
-    background-color: #fff;
-    border: 1px solid #ffffff;
-}
-`
-
-const ProfileButton = styled.div`
-width: 34px;
-height: 34px;
-border-radius: 24px;
-background: #000000;
-`
-
-const SearchBarSection = ({ props, data }) => {
-
-    const options =
-        data.map((issue) => {
-            return { value: `ID: ${issue.id} | ${issue.title}` }
-        })
-
-    return (
-        <SearchbarBox display="block">
-            <SearchBarHorizontalFlexBox marginLeft={28}>
-                <SearchLogo />
-                <SearchInput
-                    style={{ width: "800px" }}
-                    options={options}
-                    placeholder="search..."
-                    onSelect={(a) => {
-                        window.location.assign(`issues/${a.split(" ")[1]}`)
-                    }}
-                    filterOption={(inputValue, option) =>
-                        option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                    }
-                />
-            </SearchBarHorizontalFlexBox>
-            <SearchBarHorizontalFlexBox float="right" marginRight={38}>
-                <ProfileButton />
-            </SearchBarHorizontalFlexBox>
-        </SearchbarBox>
-    )
-}
 
 const DashboardCard = styled(Card)`
 box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
@@ -140,11 +88,27 @@ const OverFlowText = styled(Text)`
 `
 const HoverVFB = styled(VerticalFlexBox)`
 height: 94px;
-padding: 14px;
+padding: 20px;
 :hover{
     background: #eaeaea;
 }
 `
+
+const ProgressBarBack = styled.div`
+position: absolute;
+width:100%;
+height: 5px;
+background: #E6E9F1;
+border-radius: 20px;
+`
+const ProgressBarFront = styled.div`
+position: absolute;
+width:50%;
+height: 5px;
+background: #A862EE;
+border-radius: 20px;
+`
+
 const Issue = ({ data }) => {
     let history = useHistory()
     const getDateText = (text) => {
@@ -171,23 +135,57 @@ const Issue = ({ data }) => {
     )
 }
 
+const AllIssue = ({ data }) => {
+    let history = useHistory()
+    return (
+
+        <HoverVFB style={{ cursor: "pointer" }}
+            onClick={() => {
+                history.push(`/issues/${data.id}`)
+            }}>
+            <VerticalFlexBox>
+                <HorizontalFlexBox>
+                    <ProfileButton bgUrl={data.profile_pic} />
+                    <VerticalFlexBox marginLeft={8}>
+                        <Text color="#292D32" size={14}>{data.first_name} {data.last_name}</Text>
+                        <Text color="#78899F" size={10} marginTop={-2}>{data.title}</Text>
+                    </VerticalFlexBox>
+                </HorizontalFlexBox>
+                <ContentBox marginTop={8} fullWidth style={{ position: "relative" }}>
+                    <ProgressBarBack />
+                    <ProgressBarFront />
+                </ContentBox>
+                <ContentBox fullWidth={true} display="block" >
+                    <HorizontalFlexBox marginTop={12} >
+                        <Text size={12} color="#949698">High Priority Issue:</Text>
+                        <Text size={12} fontWeight={600} color="#949698" marginLeft={2}>{0}</Text>
+                    </HorizontalFlexBox>
+
+                    <HorizontalFlexBox float="right" marginTop={12}>
+
+                        <Text size={12} color="#949698">Total Issue: </Text>
+                        <Text size={12} fontWeight={600} color="#949698" marginLeft={2}>{0}</Text>
+                    </HorizontalFlexBox>
+                </ContentBox>
+            </VerticalFlexBox>
+        </HoverVFB>
+    )
+}
+
 
 
 export const DashboardSection = () => {
 
     var { issueData, issueLoading, issueError } = GetIssuesList();
+    var { userListData, userListLoading, userListError } = GetUserList();
     const { hPData, hPLoading, hPError } = GetHPIssuesList();
-
-
     function reverseArr(input) {
         var ret = new Array;
-        for(var i = input.length-1; i >= 0; i--) {
+        for (var i = input.length - 1; i >= 0; i--) {
             ret.push(input[i]);
         }
         return ret;
     }
-    
-
     const monthDays = []
     for (var i = 1; i <= 31; i++) {
         monthDays.push(i);
@@ -245,7 +243,7 @@ export const DashboardSection = () => {
                     </DashboardCard>
                 </VerticalFlexBox>
                 <ContentBox fullWidth={true}>
-                    <HorizontalFlexBox>
+                    <FullHorizontalFlexBox>
                         <DashboardCard2 marginRight={24}>
                             <VerticalFlexBox style={{ width: "100%" }}>
                                 <Text color="black" size={20} marginLeft={24}>High Priority</Text>
@@ -292,10 +290,20 @@ export const DashboardSection = () => {
                         <DashboardCard2 marginRight={24}>
                             <VerticalFlexBox style={{ width: "100%" }}>
                                 <Text color="black" size={20} marginLeft={24}>All Issue</Text>
-                                <hr style={{ width: "100%", border: "1px solid #eaeaea" }}></hr>
+                                <div style={{ width: "100%", height: "0.1px", background: "#eaeaea", marginTop: "16px" }}></div>
+
 
                                 {/* Here */}
+                                {!userListLoading ?
+                                    userListData.slice(0, 4).map((user, index) => {
+                                        return (
+                                            <VerticalFlexBox>
+                                                <AllIssue data={user} />
+                                                <div style={{ width: "100%", height: "0.1px", background: "#eaeaea", marginTop:"24px" }} />
+                                            </VerticalFlexBox>
 
+                                        )
+                                    }) : <></>}
 
 
                                 <ContentBox fullWidth={true} display="block">
@@ -303,7 +311,7 @@ export const DashboardSection = () => {
                                 </ContentBox>
                             </VerticalFlexBox>
                         </DashboardCard2>
-                    </HorizontalFlexBox>
+                    </FullHorizontalFlexBox>
                 </ContentBox>
             </VerticalFlexBox>
         </FullWidthContentBox>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Card, ContentBox, Text } from '../../../../ui';
 import styled from "styled-components"
-import { GetTodoIssuesList, GetInProgressIssuesList, GetDoneIssuesList } from "../../../../services"
+import {SearchBarSection} from "../../../components"
+
+import { GetTodoIssuesList, GetInProgressIssuesList, GetDoneIssuesList, GetIssuesList } from "../../../../services"
 import { useHistory } from 'react-router';
 
 const FullWidthContentBox = styled(ContentBox)`
@@ -73,20 +75,6 @@ height: 34px;
 border-radius: 24px;
 background: #000000;
 `
-
-const SearchBarSection = () => {
-    return (
-        <SearchbarBox display="block">
-            <SearchBarHorizontalFlexBox marginLeft={28}>
-                <SearchLogo />
-                <SearchInput placeholder="search..." />
-            </SearchBarHorizontalFlexBox>
-            <SearchBarHorizontalFlexBox float="right" marginRight={38}>
-                <ProfileButton />
-            </SearchBarHorizontalFlexBox>
-        </SearchbarBox>
-    )
-}
 
 const DashboardCard2 = styled(Card)`
 background: #EBEDF3;
@@ -177,6 +165,8 @@ const IssueCard = ({ data }) => {
 
 
 export const IssuesSection = () => {
+    var { issueData, issueLoading, issueError } = GetIssuesList();
+
     const { todoData, todoLoading, todoError } = GetTodoIssuesList();
     const { ipData, ipLoading, ipError } = GetInProgressIssuesList();
     const { doneData, doneLoading, doneError } = GetDoneIssuesList();
@@ -189,7 +179,7 @@ export const IssuesSection = () => {
     return (
         <FullWidthContentBox >
             <VerticalFlexBox>
-                <SearchBarSection />
+                <SearchBarSection data={!issueLoading ? issueData : []} />
                 <VerticalFlexBox fullWidth={true}>
                     <ContentBox marginLeft={30} marginTop={32}>
                         <Text size={28} fontWeight={600} color="#000000">Issues</Text>

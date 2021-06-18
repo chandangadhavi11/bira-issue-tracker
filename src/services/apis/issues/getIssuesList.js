@@ -16,6 +16,23 @@ export const GetIssuesList = () => {
     return { issueData, issueLoading, issueError }
 }
 
+export const GetIssuesList2 = () => {
+    const url = `/api/v1/issues`
+    const [issueListData, setIssueListData] = useState()
+    const [issueListLoading, setIssueListLoading] = useState(true)
+    const [issueListError, setIssueListError] = useState(false)
+
+    useEffect(() => {
+        fetch(url).then((res) => res.json())
+            .then((res) => setIssueListData(res))
+            .then(() => setIssueListLoading(false))
+            .catch(setIssueListError(true))
+    }, [url])
+
+    return { issueListData, issueListLoading, issueListError }
+}
+
+
 export const GetTodoIssuesList = () => {
     const url = `/api/v1/issues?status=TODO`
     const [todoData, setTodoData] = useState()

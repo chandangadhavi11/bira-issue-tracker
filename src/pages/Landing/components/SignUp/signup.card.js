@@ -99,7 +99,9 @@ export const SignUpCard = () => {
                     <AnimationPlaceHolder color="#000000">Confirm Password</AnimationPlaceHolder>
                 </ContentBox>
                 <ContentBox marginTop={24}>
-                    <Button>Sign Up</Button>
+                    <Button onClick={()=> {
+                        history.push("/dashboard")
+                    }}>Sign Up</Button>
                 </ContentBox>
                 <HorizontalFlexBox marginTop={24} marginBottom={8}>
                     <Text color="#000000" size={14}>Already Have An Account?</Text>
