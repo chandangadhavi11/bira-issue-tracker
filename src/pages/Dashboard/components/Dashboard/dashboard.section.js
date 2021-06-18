@@ -299,13 +299,10 @@ export const DashboardSection = () => {
                                         return (
                                             <VerticalFlexBox>
                                                 <AllIssue data={user} />
-                                                <div style={{ width: "100%", height: "0.1px", background: "#eaeaea", marginTop:"24px" }} />
+                                                <div style={{ width: "100%", height: "0.1px", background: "#eaeaea", marginTop: "24px" }} />
                                             </VerticalFlexBox>
-
                                         )
                                     }) : <></>}
-
-
                                 <ContentBox fullWidth={true} display="block">
                                     <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600}>View All</Text>
                                 </ContentBox>
