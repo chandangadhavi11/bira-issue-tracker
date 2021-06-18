@@ -30,7 +30,6 @@ height: 56px;
 border: solid 1px #E0E4E8;
 outline: none;
 padding-left: 16px;
-font-style: italic;
 font-style: ${props => props.value ? "normal" : "italic"};
 `
 
