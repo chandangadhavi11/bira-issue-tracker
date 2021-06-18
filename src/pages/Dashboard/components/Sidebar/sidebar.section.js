@@ -69,7 +69,7 @@ const SidebarLogo = () => {
         <SidebarLogoCSS>
             <HorizontalFlexBox marginTop={10} marginLeft={20} style={{ width: "100%", height: "100%" }}>
                 <Logo/>
-                <Text size={26} marginLeft={8} marginTop={10} fontWeight={600} color="#000000">BIRA</Text>
+                <Text size={26} marginLeft={8} marginTop={4} fontWeight={600} color="#000000">BIRA</Text>
             </HorizontalFlexBox>
         </SidebarLogoCSS>
     )

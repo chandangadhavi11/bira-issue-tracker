@@ -119,7 +119,7 @@ export const CreateSection = () => {
                             <Text color="black" size={20} marginLeft={24}>High Priority</Text>
                             <hr style={{width: "100%", border: "1px solid #eaeaea"}}></hr>
                             <ContentBox fullWidth={true} display="block">
-                                <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600}>View All</Text>
+                                <Text float="right" color="#4D60F6" marginRight={24} marginTop={12} fontWeight={600}>View All</Text>
                             </ContentBox>
                         </VerticalFlexBox>
                     </DashboardCard2>
@@ -128,7 +128,7 @@ export const CreateSection = () => {
                             <Text color="black" size={20} marginLeft={24}>Recently Updated Issue</Text>
                             <hr style={{width: "100%", border: "1px solid #eaeaea"}}></hr>
                             <ContentBox fullWidth={true} display="block">
-                                <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600}>View All</Text>
+                                <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600} marginTop={12}>View All</Text>
                             </ContentBox>
                         </VerticalFlexBox>
                     </DashboardCard2>
@@ -137,7 +137,7 @@ export const CreateSection = () => {
                             <Text color="black" size={20} marginLeft={24}>All Issue</Text>
                             <hr style={{width: "100%", border: "1px solid #eaeaea"}}></hr>
                             <ContentBox fullWidth={true} display="block">
-                                <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600}>View All</Text>
+                                <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600} marginTop={12}>View All</Text>
                             </ContentBox>
                         </VerticalFlexBox>
                     </DashboardCard2>

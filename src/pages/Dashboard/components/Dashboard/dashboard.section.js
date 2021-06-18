@@ -229,6 +229,7 @@ export const DashboardSection = () => {
             ],
         },
     };
+    let history = useHistory();
     return (
         <FullWidthContentBox >
             <VerticalFlexBox>
@@ -262,7 +263,7 @@ export const DashboardSection = () => {
                                         )
                                     }) : <></>}
                                 <ContentBox fullWidth={true} display="block">
-                                    <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600}>View All</Text>
+                                    <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600} marginTop={24} onClick={() => {history.push("/issues")}} style={{cursor: "pointer"}}>View All</Text>
                                 </ContentBox>
                             </VerticalFlexBox>
                         </DashboardCard2>
@@ -283,7 +284,7 @@ export const DashboardSection = () => {
                                         )
                                     }) : <></>}
                                 <ContentBox fullWidth={true} display="block">
-                                    <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600}>View All</Text>
+                                    <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600} marginTop={24} onClick={() => {history.push("/issues")}} style={{cursor: "pointer"}}>View All</Text>
                                 </ContentBox>
                             </VerticalFlexBox>
                         </DashboardCard2>
@@ -304,7 +305,7 @@ export const DashboardSection = () => {
                                         )
                                     }) : <></>}
                                 <ContentBox fullWidth={true} display="block">
-                                    <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600}>View All</Text>
+                                    <Text float="right" color="#4D60F6" marginRight={24} fontWeight={600} marginTop={24} onClick={() => {history.push("/issues")}} style={{cursor: "pointer"}}>View All</Text>
                                 </ContentBox>
                             </VerticalFlexBox>
                         </DashboardCard2>
