@@ -292,8 +292,6 @@ export const DashboardSection = () => {
                             <VerticalFlexBox style={{ width: "100%" }}>
                                 <Text color="black" size={20} marginLeft={24}>All Issue</Text>
                                 <div style={{ width: "100%", height: "0.1px", background: "#eaeaea", marginTop: "16px" }}></div>
-
-
                                 {/* Here */}
                                 {!userListLoading ?
                                     userListData.slice(0, 4).map((user, index) => {

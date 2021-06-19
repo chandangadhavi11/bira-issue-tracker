@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ContentBox, Text } from '../../../../ui';
 import styled from "styled-components"
-import { GetIssue, GetIssuesList, DeleteIssue, UpdateStatus, GetIssuesList2 } from '../../../../services';
+import { GetIssue, GetIssuesList, DeleteIssue, UpdateStatus, GetIssuesList2, GetUser } from '../../../../services';
 import { EditModal } from "./modal/edit.modal"
 import { DeleteConfirmationModal } from "./modal/deleteconfirm.modal"
 import {SearchBarSection} from "../../../components"
@@ -103,6 +103,9 @@ export const IssueSection = ({ id }) => {
     const [editModalIsShown, setEditModalIsShown] = useState(false);
     const [deleteConfirmationModalIsShown, setDeleteConfirmationModalIsShown] = useState(false);
     const [status, setStatus] = useState();
+
+    const { userData, userLoading, userError } = GetUser(!issueListLoading ? issueData.assignee : undefined);
+
     useEffect(() => {
         if (!issueLoading) {
             setStatus(issueData.status)
@@ -130,7 +133,7 @@ export const IssueSection = ({ id }) => {
         const deleteIssueFetch = await fetch(`http://localhost:8000/api/v1/issues/${id}/`, requestOptions);
     }
 
-    if (issueLoading || issueListLoading) {
+    if (issueLoading || issueListLoading || userLoading) {
         return <h1>Loading</h1>
     }
     return (
@@ -205,7 +208,7 @@ export const IssueSection = ({ id }) => {
 
                     <ContentBox display="block">
                         <Text size={16} color="#76797C">Asignee: </Text>
-                        <Text size={16} fontWeight={600} color="#292D32" float="right">Asignee</Text>
+                        <Text size={16} fontWeight={600} color="#292D32" float="right">{!userLoading ? userData.first_name + " " + userData.last_name : ""}</Text>
                     </ContentBox>
 
                     <ContentBox display="block">

@@ -14,3 +14,4 @@ export {UpdateStatus} from "./apis/issues/partialIssueUpdate"
 
 
 export {GetUserList} from "./apis/users/getUsersList"
+export {GetUser} from "./apis/users/getUser"

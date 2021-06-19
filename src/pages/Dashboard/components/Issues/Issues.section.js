@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Card, ContentBox, Text } from '../../../../ui';
 import styled from "styled-components"
-import {SearchBarSection} from "../../../components"
+import { SearchBarSection } from "../../../components"
 
-import { GetTodoIssuesList, GetInProgressIssuesList, GetDoneIssuesList, GetIssuesList } from "../../../../services"
+import { GetTodoIssuesList, GetInProgressIssuesList, GetDoneIssuesList, GetIssuesList, GetUserList, GetUser } from "../../../../services"
 import { useHistory } from 'react-router';
 
 const FullWidthContentBox = styled(ContentBox)`
@@ -73,7 +73,9 @@ const ProfileButton = styled.div`
 width: 34px;
 height: 34px;
 border-radius: 24px;
-background: #000000;
+background: ${props => props.bgUrl ? `url(${props.bgUrl})` : "white"};
+background-size: cover;
+background-position: center;
 `
 
 const DashboardCard2 = styled(Card)`
@@ -107,6 +109,7 @@ const OverFlowText = styled(Text)`
 `
 
 const IssueCard = ({ data }) => {
+    const { userData, userLoading, userError } = GetUser(data.assignee);
     let history = useHistory();
     const getDateText = (text) => {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -114,6 +117,9 @@ const IssueCard = ({ data }) => {
         const month = months[text.slice(6, 7) - 1];
         const year = text.slice(0, 4);
         return `${month} ${date}, ${year}`
+    }
+    if(!userLoading){
+        console.log(userData);
     }
     return (
         <IssueCardCss
@@ -139,10 +145,10 @@ const IssueCard = ({ data }) => {
                 </ContentBox>
                 <ContentBox display="block" marginTop={4}>
                     <HorizontalFlexBox>
-                        <ProfileButton />
+                        <ProfileButton bgUrl={userData.profile_pic}/>
                         <VerticalFlexBox marginLeft={8}>
-                            <Text color="#292D32" size={14}>Chandan</Text>
-                            <Text color="#78899F" size={10} marginTop={-2}>Chandan</Text>
+                            <Text color="#292D32" size={14}>{!userLoading ? userData.first_name + " " + userData.last_name : ""}</Text>
+                            <Text color="#78899F" size={10} marginTop={-2}>{!userLoading ? userData.title : ""}</Text>
                         </VerticalFlexBox>
                     </HorizontalFlexBox>
                     <CenteredFlexBox componentWidth={110} componentHeight={24} marginTop={4} float="right"
@@ -166,7 +172,6 @@ const IssueCard = ({ data }) => {
 
 export const IssuesSection = () => {
     var { issueData, issueLoading, issueError } = GetIssuesList();
-
     const { todoData, todoLoading, todoError } = GetTodoIssuesList();
     const { ipData, ipLoading, ipError } = GetInProgressIssuesList();
     const { doneData, doneLoading, doneError } = GetDoneIssuesList();
@@ -176,6 +181,7 @@ export const IssuesSection = () => {
     //         <h1>Error</h1>
     //     )
     // }
+
     return (
         <FullWidthContentBox >
             <VerticalFlexBox>
@@ -201,7 +207,7 @@ export const IssuesSection = () => {
                                 {!todoLoading ?
                                     todoData.map((issue, index) => {
                                         return (
-                                            <IssueCard key={index} data={issue} />
+                                            <IssueCard key={index} data={issue}/>
                                         )
                                     })
                                     :
